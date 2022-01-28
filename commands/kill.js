@@ -5,11 +5,11 @@ module.exports = {
     data: new SlashCommandBuilder()
     .setName('kill')
     .setDescription('Kill someone (luihum begged me for this command)')
-    .addMentionableOption(option => option.setName('victim').setDescription('the chosen one').setRequired(true)),
+    .addUserOption(option => option.setName('victim').setDescription('the chosen one').setRequired(true)),
     async execute(interaction) {
         var typeOfDeath = Math.floor(Math.random() * 3);
         const deathMessages = death.deathmessages[typeOfDeath]
-        const victim = interaction.options.getMentionable('victim');
+        const victim = interaction.options.getUser('victim');
         var todString = "";
         console.log(typeOfDeath)
 
