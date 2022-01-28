@@ -1,2 +1,2 @@
 # xai
-the discord bot for the progressbar95 discord server
+the bot i made for the progressbar95 discord
