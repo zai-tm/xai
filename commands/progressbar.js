@@ -49,7 +49,7 @@ module.exports = {
                                 theActualSegment = segments[Math.floor(Math.random() * segments.length)]
                                 if (progress < 100) {
                                     i.update(`${theActualSegment}\nYour progress: ${progressbar.join('')}`);
-                                } else if (progress = 100) {
+                                } else if (progress === 100) {
                                     if (yellow > 0) {
                                         i.update({content: `Bravo!\n${progressbar.join('')}`, components: []});
                                         collector.stop();
@@ -76,8 +76,8 @@ module.exports = {
                                 theActualSegment = segments[Math.floor(Math.random() * segments.length)]
                                 if (progress < 100) {
                                     i.update(`${theActualSegment}\nYour progress: ${progressbar.join('')}`);
-                                } else if (progress = 100) {
-                                    if (yellow = 100) {
+                                } else if (progress === 100) {
+                                    if (yellow === 100) {
                                         i.update({content: `Nonconformist!\n${progressbar.join('')}`, components: []});
                                     } else {
                                         i.update({content: `Bravo!\n${progressbar.join('')}`, components: []})
