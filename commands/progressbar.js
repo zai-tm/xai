@@ -35,15 +35,15 @@ module.exports = {
         var progress = 0;
         var yellow = 0;
         var theActualSegment = segments[Math.floor(Math.random() * segments.length)]
-        var greenSegmentChance = Math.floor(Math.random() * 100)
-        if (greenSegmentChance === 0) {
-            theActualSegment = "🟩"
-        }
         const message = await interaction.reply({content: `${theActualSegment}\nYour progress:`, components: [control], fetchReply: true});
         //console.log(message)
 
         function getNextSegment() {
             theActualSegment = segments[Math.floor(Math.random() * segments.length)]
+            var greenSegmentChance = Math.floor(Math.random() * 100)
+            if (greenSegmentChance === 0) {
+                theActualSegment = "🟩"
+            }
             return theActualSegment;
         }
         const collector = message.createMessageComponentCollector({ componentType: 'BUTTON', time: 600000});
