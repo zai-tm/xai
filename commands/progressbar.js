@@ -14,6 +14,7 @@ module.exports = {
             "🟥",
             "🟪",
             "⬜", 
+            "<a:DataMash:853137832139161630>",
         ]
         const control = new MessageActionRow()
         .addComponents(
@@ -34,8 +35,78 @@ module.exports = {
         var progress = 0;
         var yellow = 0;
         var theActualSegment = segments[Math.floor(Math.random() * segments.length)]
+        var greenSegmentChance = Math.floor(Math.random() * 100)
+        if (greenSegmentChance === 0) {
+            theActualSegment = "🟩"
+        }
         const message = await interaction.reply({content: `${theActualSegment}\nYour progress:`, components: [control], fetchReply: true});
         //console.log(message)
+
+        function getNextSegment() {
+            theActualSegment = segments[Math.floor(Math.random() * segments.length)]
+            return theActualSegment;
+        }
+        function blueSegment() {
+            progressbar.push('🟦');
+            progress += 10;
+            getNextSegment();
+            if (progress < 100) {
+                i.update(`${theActualSegment}\nYour progress: ${progressbar.join('')}`);
+            } else if (progress === 100) {
+                if (yellow > 0) {
+                    i.update({content: `Bravo!\n${progressbar.join('')}`, components: []});
+                    collector.stop();
+                } else {
+                    i.update({content: `Perfect!\n${progressbar.join('')}`, components: []});
+                    collector.stop();
+                }
+            }
+        }
+        function greenSegment() {
+            progress = 100;
+            yellow = 0;
+            while (progressbar.length < 10) {
+                progressbar.push('🟦');
+            }
+            wait(500);
+            i.update({content: `Perfect!\n${progressbar.join('')}`, components: []});
+            collector.stop();
+        }
+        function yellowSegment() {
+            progressbar.push('🟨');
+            progress += 10;
+            yellow += 10;
+            getNextSegment();
+            if (progress < 100) {
+                i.update(`${theActualSegment}\nYour progress: ${progressbar.join('')}`);
+            } else if (progress === 100) {
+                if (yellow === 100) {
+                    i.update({content: `Nonconformist!\n${progressbar.join('')}`, components: []});
+                } else {
+                    i.update({content: `Bravo!\n${progressbar.join('')}`, components: []})
+                }
+                collector.stop();
+            }         
+        }
+        function redSegment() {
+                i.update({content: `You lost! \nYour Progress: ${progressbar.join('')}`, components: []});
+                collector.stop();
+        }
+        function pinkSegment() {
+            if (progressbar[progressbar.length] == '🟨') {
+                yellow -= 10;
+            }
+            if (progressbar.length !== 0) {
+                progress -= 10;
+                progressbar.pop();
+            }
+            getNextSegment();
+            i.update(`${theActualSegment}\nYour progress: ${progressbar.join('')}`);
+        }
+        function greySegment() {
+            getNextSegment();
+            i.update(`${theActualSegment}\nYour progress: ${progressbar.join('')}`);
+        }
         const collector = message.createMessageComponentCollector({ componentType: 'BUTTON', time: 600000});
 
         collector.on('collect', i => {
@@ -44,70 +115,50 @@ module.exports = {
                     case 'catch':
                         switch (theActualSegment) {
                             case "🟦":
-                                progressbar.push('🟦');
-                                progress += 10;
-                                theActualSegment = segments[Math.floor(Math.random() * segments.length)]
-                                if (progress < 100) {
-                                    i.update(`${theActualSegment}\nYour progress: ${progressbar.join('')}`);
-                                } else if (progress === 100) {
-                                    if (yellow > 0) {
-                                        i.update({content: `Bravo!\n${progressbar.join('')}`, components: []});
-                                        collector.stop();
-                                    } else {
-                                        i.update({content: `Perfect!\n${progressbar.join('')}`, components: []});
-                                        collector.stop();
-                                    }
-                                }
+                                blueSegment();
                                 break;
-                            /*case "🟩":
-                                progress = 100;
-                                yellow = 0;
-                                while (progressbar.length < 10) {
-                                    progressbar.push('🟦');
-                                }
-                                wait(500);
-                                i.update({content: `Perfect!\n${progressbar.join('')}`, components: []});
-                                collector.stop();
-                                break;*/
+                            case "🟩":
+                                greenSegment();
+                                break;
                             case "🟨":
-                                progressbar.push('🟨');
-                                progress += 10;
-                                yellow += 10;
-                                theActualSegment = segments[Math.floor(Math.random() * segments.length)]
-                                if (progress < 100) {
-                                    i.update(`${theActualSegment}\nYour progress: ${progressbar.join('')}`);
-                                } else if (progress === 100) {
-                                    if (yellow === 100) {
-                                        i.update({content: `Nonconformist!\n${progressbar.join('')}`, components: []});
-                                    } else {
-                                        i.update({content: `Bravo!\n${progressbar.join('')}`, components: []})
-                                    }
-                                    collector.stop();
-                                }
+                                yellowSegment();
                                 break;
                             case "🟥":
-                                i.update({content: `You lost! \nYour Progress: ${progressbar.join('')}`, components: []});
-                                collector.stop();
+                                redSegment();
                                 break;
                             case "🟪":
-                                if (progressbar[progressbar.length] == '🟨') {
-                                    yellow -= 10;
-                                }
-                                if (progressbar.length !== 0) {
-                                    progress -= 10;
-                                    progressbar.pop();
-                                }
-                                theActualSegment = segments[Math.floor(Math.random() * segments.length)]
-                                i.update(`${theActualSegment}\nYour progress: ${progressbar.join('')}`);
+                                pinkSegment();
                                 break;
                             case "⬜":
-                                theActualSegment = segments[Math.floor(Math.random() * segments.length)]
-                                i.update(`${theActualSegment}\nYour progress: ${progressbar.join('')}`);
+                                greySegment();
                                 break;
+                            case "<a:DataMash:853137832139161630>":
+                                var random = Math.floor(Math.random() * 5)
+                                switch (random) {
+                                    case 0:
+                                        blueSegment();
+                                        break;
+                                    case 1:
+                                        greenSegment();
+                                        break;
+                                    case 2:
+                                        yellowSegment();
+                                        break;
+                                    case 3:
+                                        redSegment();
+                                        break;
+                                    case 4:
+                                        pinkSegment();
+                                        break;
+                                    case 5:
+                                        greySegment();
+                                        break;
+                                }
+                                break;  
                         }
                         break;
                     case 'shy':
-                        theActualSegment = segments[Math.floor(Math.random() * segments.length)]
+                        getNextSegment();
                         i.update(`${theActualSegment}\nYour progress: ${progressbar.join('')}`);
                         break;
                     case 'quit':
