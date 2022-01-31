@@ -46,70 +46,71 @@ module.exports = {
             theActualSegment = segments[Math.floor(Math.random() * segments.length)]
             return theActualSegment;
         }
-        function blueSegment() {
-            progressbar.push('🟦');
-            progress += 10;
-            getNextSegment();
-            if (progress < 100) {
-                i.update(`${theActualSegment}\nYour progress: ${progressbar.join('')}`);
-            } else if (progress === 100) {
-                if (yellow > 0) {
-                    i.update({content: `Bravo!\n${progressbar.join('')}`, components: []});
-                    collector.stop();
-                } else {
-                    i.update({content: `Perfect!\n${progressbar.join('')}`, components: []});
-                    collector.stop();
-                }
-            }
-        }
-        function greenSegment() {
-            progress = 100;
-            yellow = 0;
-            while (progressbar.length < 10) {
-                progressbar.push('🟦');
-            }
-            wait(500);
-            i.update({content: `Perfect!\n${progressbar.join('')}`, components: []});
-            collector.stop();
-        }
-        function yellowSegment() {
-            progressbar.push('🟨');
-            progress += 10;
-            yellow += 10;
-            getNextSegment();
-            if (progress < 100) {
-                i.update(`${theActualSegment}\nYour progress: ${progressbar.join('')}`);
-            } else if (progress === 100) {
-                if (yellow === 100) {
-                    i.update({content: `Nonconformist!\n${progressbar.join('')}`, components: []});
-                } else {
-                    i.update({content: `Bravo!\n${progressbar.join('')}`, components: []})
-                }
-                collector.stop();
-            }         
-        }
-        function redSegment() {
-                i.update({content: `You lost! \nYour Progress: ${progressbar.join('')}`, components: []});
-                collector.stop();
-        }
-        function pinkSegment() {
-            if (progressbar[progressbar.length] == '🟨') {
-                yellow -= 10;
-            }
-            if (progressbar.length !== 0) {
-                progress -= 10;
-                progressbar.pop();
-            }
-            getNextSegment();
-            i.update(`${theActualSegment}\nYour progress: ${progressbar.join('')}`);
-        }
-        function greySegment() {
-            getNextSegment();
-            i.update(`${theActualSegment}\nYour progress: ${progressbar.join('')}`);
-        }
         const collector = message.createMessageComponentCollector({ componentType: 'BUTTON', time: 600000});
 
         collector.on('collect', i => {
+            function blueSegment() {
+                progressbar.push('🟦');
+                progress += 10;
+                getNextSegment();
+                if (progress < 100) {
+                    i.update(`${theActualSegment}\nYour progress: ${progressbar.join('')}`);
+                } else if (progress === 100) {
+                    if (yellow > 0) {
+                        i.update({content: `Bravo!\n${progressbar.join('')}`, components: []});
+                        collector.stop();
+                    } else {
+                        i.update({content: `Perfect!\n${progressbar.join('')}`, components: []});
+                        collector.stop();
+                    }
+                }
+            }
+            function greenSegment() {
+                progress = 100;
+                yellow = 0;
+                while (progressbar.length < 10) {
+                    progressbar.push('🟦');
+                }
+                wait(500);
+                i.update({content: `Perfect!\n${progressbar.join('')}`, components: []});
+                collector.stop();
+            }
+            function yellowSegment() {
+                progressbar.push('🟨');
+                progress += 10;
+                yellow += 10;
+                getNextSegment();
+                if (progress < 100) {
+                    i.update(`${theActualSegment}\nYour progress: ${progressbar.join('')}`);
+                } else if (progress === 100) {
+                    if (yellow === 100) {
+                        i.update({content: `Nonconformist!\n${progressbar.join('')}`, components: []});
+                    } else {
+                        i.update({content: `Bravo!\n${progressbar.join('')}`, components: []})
+                    }
+                    collector.stop();
+                }         
+            }
+            function redSegment() {
+                    i.update({content: `You lost! \nYour Progress: ${progressbar.join('')}`, components: []});
+                    collector.stop();
+            }
+            function pinkSegment() {
+                if (progressbar[progressbar.length] == '🟨') {
+                    yellow -= 10;
+                }
+                if (progressbar.length !== 0) {
+                    progress -= 10;
+                    progressbar.pop();
+                }
+                getNextSegment();
+                i.update(`${theActualSegment}\nYour progress: ${progressbar.join('')}`);
+            }
+            function greySegment() {
+                getNextSegment();
+                i.update(`${theActualSegment}\nYour progress: ${progressbar.join('')}`);
+            }
+    
             if (i.user.id === interaction.user.id) {
                 switch (i.customId) {
                     case 'catch':
