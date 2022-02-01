@@ -1,6 +1,6 @@
 const fs = require('fs');
 const {Intents, Client, Collection} = require('discord.js');
-const {token} = require('./config.json');
+const {token, botOwnerID, activity, activityType} = require('./config.json');
 
 const client = new Client({intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]});
 
@@ -14,7 +14,7 @@ for (const file of commandFiles) {
 
 client.once('ready', () => {
     console.log("ready dum");
-    client.user.setActivity('your every move', { type: 'WATCHING' });
+    client.user.setActivity(activity, { type: activityType });
 });
 
 client.on('interactionCreate', async interaction => {
@@ -27,7 +27,7 @@ client.on('interactionCreate', async interaction => {
         await command.execute(interaction);
     } catch (error) {
         console.error(error);
-        if (interaction.user.id !== "363853381061574658") {
+        if (interaction.user.id !== botOwnerID) {
             await interaction.reply({content: 'error moment', ephemeral: true})
         } else {
             await interaction.reply({content: error, ephemeral: true})

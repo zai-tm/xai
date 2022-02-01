@@ -1,6 +1,6 @@
 const {SlashCommandBuilder} = require('@discordjs/builders');
 const {createConnection} = require('mysql')
-const {mysqlUser,mysqlPass,mysqlDB} = require('../config.json')
+const {mysqlUser,mysqlPass,mysqlDB,botOwnerID} = require('../config.json')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -107,7 +107,7 @@ module.exports = {
                     try {
                         console.log(JSON.stringify(result[0]));
                         console.log(interaction.user.id);
-                        if (interaction.user.id === '363853381061574658') {
+                        if (interaction.user.id === botOwnerID) {
                             database.query(`delete from tags where name='${name.toLowerCase()}'`, function (err, result, fields) {
                                 if (err) throw err;
                                 interaction.reply(`Tag **${name}** deleted.`);
