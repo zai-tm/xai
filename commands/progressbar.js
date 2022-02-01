@@ -69,6 +69,7 @@ module.exports = {
             }
             function greenSegment() {
                 progress = 100;
+                progressbar.length = 0;
                 yellow = 0;
                 while (progressbar.length < 10) {
                     progressbar.push('🟦');
