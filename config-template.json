@@ -1,0 +1,8 @@
+{
+    "token": "YOUR-TOKEN-HERE",
+    "webhookId": "YOUR-WEBHOOK-ID-HERE",
+    "webhookToken": "YOUR-WEBHOOK-TOKEN-HERE",
+    "mysqlUser": "YOUR-MYSQL-USERNAME-HERE",
+    "mysqlPass": "YOUR-MYSQL-PASSWORD-HERE",
+    "mysqlDB": "YOUR-MYSQL-DB-HERE"
+}
