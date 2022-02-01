@@ -8,6 +8,6 @@
     "mysqlUser": "YOUR-MYSQL-USERNAME-HERE",
     "mysqlPass": "YOUR-MYSQL-PASSWORD-HERE",
     "mysqlDB": "YOUR-MYSQL-DB-HERE",
-    "activityType": "WATCHING",
-    "activity": "your every mode"
+    "activityType": "PLAYING",
+    "activity": "Above can be changed to PLAYING, STREAMING, LISTENING, WATCHING, or COMPETING"
 }
