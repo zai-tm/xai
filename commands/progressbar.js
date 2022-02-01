@@ -34,6 +34,7 @@ module.exports = {
         const progressbar = [];
         var progress = 0;
         var yellow = 0;
+        var blue = 0;
         var theActualSegment = segments[Math.floor(Math.random() * segments.length)]
         const message = await interaction.reply({content: `${theActualSegment}\nYour progress:`, components: [control], fetchReply: true});
         //console.log(message)
@@ -52,6 +53,7 @@ module.exports = {
             function blueSegment() {
                 progressbar.push('🟦');
                 progress += 10;
+                blue += 10;
                 getNextSegment();
                 if (progress < 100) {
                     i.update(`${theActualSegment}\nYour progress: ${progressbar.join('')}`);
@@ -79,12 +81,50 @@ module.exports = {
                 progressbar.push('🟨');
                 progress += 10;
                 yellow += 10;
+                const zebra = [
+                    '🟦',
+                    '🟨',
+                    '🟦',
+                    '🟨',
+                    '🟦',
+                    '🟨',
+                    '🟦',
+                    '🟨',
+                    '🟦',
+                    '🟨'
+                ];
+                const tube = [
+                    '🟦',
+                    '🟨',
+                    '🟨',
+                    '🟨',
+                    '🟨',
+                    '🟨',
+                    '🟨',
+                    '🟨',
+                    '🟨',
+                    '🟦'
+                ]
+
+                var isZebra = progressbar.length == zebra.length && progressbar.every(function(element, index) {
+                    return element === zebra[index];
+                  });
+                var isTube = progressbar.length == tube.length && progressbar.every(function(element, index) {
+                    return element === zebra[index];
+                  });
                 getNextSegment();
                 if (progress < 100) {
                     i.update(`${theActualSegment}\nYour progress: ${progressbar.join('')}`);
                 } else if (progress === 100) {
+                    // yanderedev moment
                     if (yellow === 100) {
                         i.update({content: `Nonconformist!\n${progressbar.join('')}`, components: []});
+                    } else if (isZebra) {
+                        i.update({content: `Zebra!\n${progressbar.join('')}`, components: []})
+                    } else if (blue === 50 && yellow == 50) {
+                        i.update({content: `Yin and Yang!\n${progressbar.join('')}`, components: []})
+                    } else if (isTube) {
+                        i.update({content: `Tube!\n${progressbar.join('')}`, components: []})
                     } else {
                         i.update({content: `Bravo!\n${progressbar.join('')}`, components: []})
                     }
