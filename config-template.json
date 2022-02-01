@@ -1,0 +1,13 @@
+{
+    "botOwnerID": "YOUR-DISCORD-ID-HERE",
+    "token": "YOUR-TOKEN-HERE",
+    "clientId": "YOUR-BOT-CLIENTID-HERE",
+    "guildId": "YOUR-TEST-SERVER-ID-HERE",
+    "webhookId": "YOUR-WEBHOOK-ID-HERE",
+    "webhookToken": "YOUR-WEBHOOK-TOKEN-HERE",
+    "mysqlUser": "YOUR-MYSQL-USERNAME-HERE",
+    "mysqlPass": "YOUR-MYSQL-PASSWORD-HERE",
+    "mysqlDB": "YOUR-MYSQL-DB-HERE",
+    "activityType": "WATCHING",
+    "activity": "your every mode"
+}
