@@ -27,6 +27,6 @@ Here is a table for what each of the items mean.
 
 This bot uses Node.js, so make sure you have that first ([you can get that from here](https://nodejs.org/en/)).
 
-Download all modules by running `npm i`, run the bot by running `run.bat` (or `run-no-g.bat` to only initilize the bot for 1 guild and not globally.)
+Download all modules by running `npm i`, run the bot by running `run.bat` (or `run-no-g.bat` to only initialize the bot for 1 guild and not globally.)
 
 To remove your commands, run `remove-commands.bat`.
