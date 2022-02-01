@@ -15,13 +15,13 @@ const rest = new REST({version:9}).setToken(token);
 
     (async () => {
          try {
-            console.log('doing stuff :)');
+            console.log('Registering commmands...');
             await rest.put(
                 Routes.applicationCommands(clientId),
                 {body:commands},
                 );
 
-                console.log('command good');
+                console.log('Done!');
             } catch (error) {
                 console.error(error);
             }

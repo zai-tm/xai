@@ -13,7 +13,7 @@ for (const file of commandFiles) {
 }
 
 client.once('ready', () => {
-    console.log("ready dum");
+    console.log("Logged in.");
     client.user.setActivity(activity, { type: activityType });
 });
 
