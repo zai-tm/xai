@@ -1,5 +1,6 @@
 const {SlashCommandBuilder} = require('@discordjs/builders');
 const wait = require('util').promisify(setTimeout);
+const {MessageEmbed} = require('discord.js')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -33,12 +34,26 @@ module.exports = {
         ]
         var length = question.length
 
+        const shakeEmbed = new MessageEmbed()
+            .setTitle('Magic 8-ball')
+            .setThumbnail('https://www.horoscope.com/images-US/games/game-magic-8-ball-no-text.png')
+            .setDescription('Shaking the 8ball...')
+            .setColor('#000000')
+            .setTimestamp(),
+        const questionEmbed = new MessageEmbed()
+            .setTitle('Magic 8-ball')
+            .setThumbnail('https://www.horoscope.com/images-US/games/game-magic-8-ball-no-text.png')
+            .setColor('#000000')
+            .addFields(
+                { name: 'Your Question', value: question, inline: true },
+                { name: 'The 8-ball says', value: responses[Math.floor(Math.random() * responses.length)], inline: true },
+            )
         if (length > 255) {
             await interaction.reply({content: 'Your question is too long', ephemeral: true})
         } else {
-            await interaction.reply("Shaking the 8-ball...");
+            await interaction.reply({embeds: [shakeEmbed]});
             await wait(1500);
-            await interaction.editReply("You asked: *" + question + "*\n" + "The 8-ball says: **" + responses[Math.floor(Math.random() * responses.length)] + "**");
+        await interaction.editReply({embeds: [questionEmbed]});
         }
 
     },

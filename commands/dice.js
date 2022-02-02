@@ -1,4 +1,5 @@
 const {SlashCommandBuilder} = require('@discordjs/builders');
+const {MessageEmbed} = require('discord.js')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -13,6 +14,12 @@ module.exports = {
             interaction.options.getInteger('sides')
         }
         var roll = Math.ceil(Math.random() * sides)
-        await interaction.reply(`The :game_die: landed on **${roll}**`);
+
+        const rollEmbed = new MessageEmbed()
+        .setTitle('Dice')
+        .addFields(
+            {title: 'The dice landed on...', value:`**roll**.`}
+        )
+        await interaction.reply({embeds: [rollEmbed]});
     },
 };
