@@ -37,3 +37,21 @@ client.on('interactionCreate', async interaction => {
 });
 
 client.login(token);
+
+client.on('ready', () => progressDOS());
+async function progressDOS() {
+    const readline = require('readline')
+    const cmd =
+    readline.createInterface(process.stdin, process.stdout);
+    cmd.setPrompt('> ')
+    cmd.prompt();
+    cmd.on('line', line => {
+        switch (line.split(' ')[0]) {
+            case 'help': 
+                console.log('There is no help.');
+                break;
+            default:
+                console.log('Invalid command.')
+        }
+    })
+}
