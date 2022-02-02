@@ -16,18 +16,30 @@ module.exports = {
         .setName('status')
         .setDescription('set the status of the bot')
         .addStringOption(option => option
-            .setName('verb')
-            .setDescription('The verb')
+            .setName('activity-type')
+            .setDescription('Activity Type')
             .setRequired(true)
             .addChoice('Playing', 'PLAYING')
             .addChoice('Streaming', 'STREAMING')
             .addChoice('Listening to', 'LISTENING')
             .addChoice('Watching', 'WATCHING')
             .addChoice('Competing in', 'COMPETING'))
-        .addStringOption(option => option.setName('noun').setDescription('The noun').setRequired(true)),
+        .addStringOption(option => option.setName('activity').setDescription('activity').setRequired(true))
+        .addStringOption(option => option
+            .setName('status')
+            .setDescription('the status')
+            .setRequired(true)
+            .addChoice('Online', 'online')
+            .addChoice('Idle', 'idle')
+            .addChoice('Do Not Disturb', 'dnd')
+            .addChoice('Invisible', 'invisible'))
+        .addStringOption(option => option.setName('link').setDescription('Only used for "WATCHING" activity type.')),
     async execute(interaction) {
-        const verb = interaction.options.getString('verb');
-        const noun = interaction.options.getString('noun');
+        const activityType = interaction.options.getString('activity-type');
+        const activity = interaction.options.getString('activity');
+        const status = interaction.options.getString('status');
+        const link = interaction.options.getString('link');
+
         const userID = interaction.user.id;
 
         console.log(interaction.user.id)
@@ -38,8 +50,8 @@ module.exports = {
             return;
         }
 
-        config.activityType = verb;
-        config.activity = noun;
+        config.activityType = activityType;
+        config.activity = activity;
 
         //console.log(adminID[1])
         fs.writeFile(configFile, JSON.stringify(config, null, 2), function writeJSON(err) {
@@ -48,7 +60,14 @@ module.exports = {
             console.log(JSON.stringify(config));
         });
 
-        interaction.client.user.setActivity(noun, { type: verb });
-        await interaction.reply(`set status to ${verb} ${noun}`);
+        interaction.client.user.setPresence({
+            activities: [{
+                name: activity, 
+                type: activityType,
+                url: link 
+            }],
+                status: status
+            });
+        await interaction.reply(`set status to ${activityType} ${activity} ${status}`);
     },
 };
