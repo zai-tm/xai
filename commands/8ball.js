@@ -48,6 +48,7 @@ module.exports = {
                 { name: 'Your Question', value: question, inline: true },
                 { name: 'The 8-ball says', value: responses[Math.floor(Math.random() * responses.length)], inline: true },
             )
+            .setTimestamp()
         if (length > 255) {
             await interaction.reply({content: 'Your question is too long', ephemeral: true})
         } else {
