@@ -20,6 +20,8 @@ module.exports = {
         .addFields(
             {title: 'The dice landed on...', value:`**roll**.`}
         )
+        .setTimestamp();
+        
         await interaction.reply({embeds: [rollEmbed]});
     },
 };
