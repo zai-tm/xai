@@ -8,8 +8,8 @@ module.exports = {
         .setDescription('Do stuff with maniaexchange lol')
         .addStringOption(option => option
             .setName('game')
-            .setDescription('which game\'s site to use').
-            setRequired(true)
+            .setDescription('which game\'s site to use')
+            .setRequired(true)
             .addChoice('TrackMania²', 'tm.mania')
             .addChoice('ShootMania', 'sm.mania')
             .addChoice('TrackMania 2020', 'trackmania'))
