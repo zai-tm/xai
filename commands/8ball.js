@@ -39,7 +39,7 @@ module.exports = {
             .setThumbnail('https://www.horoscope.com/images-US/games/game-magic-8-ball-no-text.png')
             .setDescription('Shaking the 8ball...')
             .setColor('#000000')
-            .setTimestamp(),
+            .setTimestamp()
         const questionEmbed = new MessageEmbed()
             .setTitle('Magic 8-ball')
             .setThumbnail('https://www.horoscope.com/images-US/games/game-magic-8-ball-no-text.png')
