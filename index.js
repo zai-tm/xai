@@ -47,11 +47,17 @@ async function progressDOS() {
     cmd.prompt();
     cmd.on('line', line => {
         switch (line.split(' ')[0]) {
-            case 'help': 
-                console.log('There is no help.');
+            case '':
                 break;
+            case 'help': 
+                console.log('help - displays this\nexit, quit, shutdown - shuts down the bot');
+                break;
+            case 'quit', 'exit', "shutdown":
+                cmd.close();
+                process.exit(0);
             default:
                 console.log('Invalid command.')
         }
+        cmd.prompt();
     })
 }
