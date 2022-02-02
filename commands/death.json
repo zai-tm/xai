@@ -75,11 +75,6 @@
         {"text":"was roasted in dragon breath"},
         {"text":"was doomed to fall"},
         {"text":"was killed by even more magic"}
-        ]},
-    {"special": [
-        {"text":"death.fell.accident.water"},
-        {"text":"death.attack.sting.item"},
-        {"text":"death.attack.witherSkull.item"}
         ]}
     ]
 }

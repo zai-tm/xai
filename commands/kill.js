@@ -7,7 +7,7 @@ module.exports = {
     .setDescription('Kill someone (luihum begged me for this command)')
     .addUserOption(option => option.setName('victim').setDescription('the chosen one').setRequired(true)),
     async execute(interaction) {
-        var typeOfDeath = Math.floor(Math.random() * 3);
+        var typeOfDeath = Math.floor(Math.random() * 2);
         const deathMessages = death.deathmessages[typeOfDeath]
         const victim = interaction.options.getUser('victim');
         var todString = "";
@@ -19,9 +19,6 @@ module.exports = {
                 break;
             case 1:
                 todString = "general"
-                break;
-            case 2:
-                todString = "special"
                 break;
         }
 
@@ -36,8 +33,6 @@ module.exports = {
             case "general":
                 deathMessage2 = `<@!${victim.id}> ${deathMessage}`;
                 break;
-            case "special":
-                deathMessage2 = `${deathMessage}`;
         }
         try {
             console.log(deathMessage)
