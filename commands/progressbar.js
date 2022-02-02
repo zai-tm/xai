@@ -54,17 +54,33 @@ module.exports = {
                 progressbar.push('🟦');
                 progress += 10;
                 blue += 10;
+                const tube = [
+                    '🟦',
+                    '🟨',
+                    '🟨',
+                    '🟨',
+                    '🟨',
+                    '🟨',
+                    '🟨',
+                    '🟨',
+                    '🟨',
+                    '🟦'
+                ]
                 getNextSegment();
+                var isTube = progressbar.length == tube.length && progressbar.every(function(element, index) {
+                    return element === zebra[index];
+                  });
                 if (progress < 100) {
                     i.update(`${theActualSegment}\nYour progress: ${progressbar.join('')}`);
                 } else if (progress === 100) {
-                    if (yellow > 0) {
+                    if (isTube) {
+                        i.update({content: `Tube!\n${progressbar.join('')}`, components: []});
+                    } else if (yellow > 0) {
                         i.update({content: `Bravo!\n${progressbar.join('')}`, components: []});
-                        collector.stop();
                     } else {
                         i.update({content: `Perfect!\n${progressbar.join('')}`, components: []});
-                        collector.stop();
                     }
+                    collector.stop();
                 }
             }
             function greenSegment() {
@@ -94,23 +110,8 @@ module.exports = {
                     '🟦',
                     '🟨'
                 ];
-                const tube = [
-                    '🟦',
-                    '🟨',
-                    '🟨',
-                    '🟨',
-                    '🟨',
-                    '🟨',
-                    '🟨',
-                    '🟨',
-                    '🟨',
-                    '🟦'
-                ]
 
                 var isZebra = progressbar.length == zebra.length && progressbar.every(function(element, index) {
-                    return element === zebra[index];
-                  });
-                var isTube = progressbar.length == tube.length && progressbar.every(function(element, index) {
                     return element === zebra[index];
                   });
                 getNextSegment();
