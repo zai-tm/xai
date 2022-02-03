@@ -22,7 +22,7 @@ module.exports = {
 
         await interaction.reply({content: 'Are you sure?\nYou have 10 seconds.', components: [yesNo], fetchReply: true});
         await wait(10000);
-        await interaction.reply({content: 'Timed out', components: []});
+        await interaction.editReply({content: 'Timed out', components: []});
         const collector = interaction.message.createMessageComponentCollector({ componentType: 'BUTTON', time: 10000});
             collector.on('collect', i => {
                 if (i.user.id === interaction.user.id) {
