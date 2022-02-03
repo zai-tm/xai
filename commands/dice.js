@@ -18,7 +18,7 @@ module.exports = {
         const rollEmbed = new MessageEmbed()
         .setTitle('Dice')
         .addFields(
-            {name: 'The dice landed on...', value:`**roll**.`}
+            {name: 'The dice landed on...', value:`**${roll}**.`}
         )
         .setTimestamp();
         
