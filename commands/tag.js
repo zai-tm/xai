@@ -55,7 +55,6 @@ module.exports = {
             case 'create':
                 database.query(`select exists(select name from tags where name='${name.toLowerCase().replaceAll("'", "\\'")}')`, function (err, result, fields) {
                     if (err) throw err;
-                    console.log(JSON.stringify(result));
                     try {
                         if (result[0][`exists(select name from tags where name='${name.toLowerCase().replaceAll("'", "\\'")}')`] == 1) {
                             interaction.reply(`Tag **${name}** already exists`);
@@ -94,7 +93,6 @@ module.exports = {
                 database.query(`select content from tags where name='${name.toLowerCase().replaceAll("'", "\\'")}'`, function (err, result, fields) {
                     if (err) throw err;
                     try {
-                        console.log(JSON.stringify(result));
                         interaction.reply(`${result[0].content}`);
                     } catch (error) {
                         interaction.reply(`Tag **${name}** does not exist.`);
@@ -105,8 +103,6 @@ module.exports = {
                 database.query(`select userid from tags where name='${name.toLowerCase()}'`, function (err, result, fields) {
                     if (err) throw err;
                     try {
-                        console.log(JSON.stringify(result[0]));
-                        console.log(interaction.user.id);
                         if (interaction.user.id === botOwnerID) {
                             database.query(`delete from tags where name='${name.toLowerCase()}'`, function (err, result, fields) {
                                 if (err) throw err;
@@ -129,8 +125,6 @@ module.exports = {
                 database.query(`select * from tags where name='${name.toLowerCase().replaceAll("'", "\\'")}'`, function (err, result, fields) {
                     if (err) throw err;
                     try {
-                        console.log(result[0].userid);
-                        console.log(interaction.user.id);
                         if (result[0].userid !== interaction.user.id) {
                             interaction.reply(`You can't edit **${name}** because you didn't create it.`);
                         } else {
@@ -151,7 +145,6 @@ module.exports = {
                 database.query(`select username,userid from tags where name='${name.toLowerCase()}'`, function (err, result, fields) {
                     if (err) throw err;
                     try {
-                        console.log(JSON.stringify(result[0]));
                         interaction.reply(`Tag **${name}** was created by **${result[0].username}** (\`${result[0].userid}\`).`);
                     } catch (error) {
                         interaction.reply(`Tag **${name}** does not exist.`);
@@ -159,10 +152,9 @@ module.exports = {
                 });
                 break;
             case 'list':
-                var listTags = database.query(`select name from tags`, function (err, result, fields) {
+                database.query(`select name from tags`, function (err, result, fields) {
                     if (err) throw err;
                     try {
-                        console.log(JSON.stringify(result));
                         interaction.reply(`Tags: \n\`\`\`ansi\n${result.map(tag => `[1;35m${tag.name}[0m`).join(', ')}\n\`\`\``);
                     } catch (error) {
                         interaction.reply(`No tags found.`);

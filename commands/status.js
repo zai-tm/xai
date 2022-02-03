@@ -42,9 +42,6 @@ module.exports = {
 
         const userID = interaction.user.id;
 
-        console.log(interaction.user.id)
-        console.log(botOwnerID)
-
         if (adminID.indexOf(userID) === -1) {
             await interaction.reply({content: 'You\'re not allowed to do this.', ephemeral: true});
             return;
@@ -53,11 +50,8 @@ module.exports = {
         config.activityType = activityType;
         config.activity = activity;
 
-        //console.log(adminID[1])
         fs.writeFile(configFile, JSON.stringify(config, null, 2), function writeJSON(err) {
             if (err) return console.error(err);
-            console.log('Updated config.json');
-            console.log(JSON.stringify(config));
         });
 
         interaction.client.user.setPresence({
