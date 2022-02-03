@@ -55,6 +55,13 @@ async function progressDOS() {
             case 'quit', 'exit', "shutdown":
                 cmd.close();
                 process.exit(0);
+             case 'eval':
+                try {
+                    eval(line.trim().substring(4))
+                } catch (error) {
+                    console.error(error)
+                }
+                break;
             default:
                 console.log('Invalid command.')
         }
