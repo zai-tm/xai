@@ -28,16 +28,16 @@ module.exports = {
                 if (i.user.id === interaction.user.id) {
                     switch (i.customId) {
                         case 'yes':
-                            await i.update({content: 'Crashing the bot in 3...', components: []})
-                            await wait(1000)
-                            await i.update('Crashing the bot in 2...')
-                            await wait(1000)
-                            await i.update('Crashing the bot in 1...')
-                            await wait(1000)
-                            await i.update(`${interaction.user.username} is not in the sudoers file. This incident will be reported.`)
+                            i.update({content: 'Crashing the bot in 3...', components: []})
+                            wait(1000)
+                            i.update('Crashing the bot in 2...')
+                            wait(1000)
+                            i.update('Crashing the bot in 1...')
+                            wait(1000)
+                            i.update(`${interaction.user.username} is not in the sudoers file. This incident will be reported.`)
                             break;
                         case 'no':
-                            await i.update({content: ':D', components: []})
+                            i.update({content: ':D', components: []})
                         
                     }
                 }
