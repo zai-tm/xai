@@ -20,17 +20,27 @@ module.exports = {
                 .setStyle('DANGER')
         );
 
-        await interaction.reply('Are you sure?\nYou have 10 seconds.', {components: [yesNo], fetchReply: true});
+        await interaction.reply({content: 'Are you sure?\nYou have 10 seconds.', components: [yesNo], fetchReply: true});
         await wait(10000);
-        await interaction.reply('Timed out', {});
+        await interaction.reply({content: 'Timed out', components: []});
         const collector = interaction.message.createMessageComponentCollector({ componentType: 'BUTTON', time: 10000});
-
-        await interaction.reply(`Crashing the bot in 3...`);
-        await wait(1000);
-        await interaction.editReply(`Crashing the bot in 2...`);
-        await wait(1000);
-        await interaction.editReply(`Crashing the bot in 1...`);
-        await wait(1000);
-        await interaction.editReply(`${interaction.user.username} is not in the sudoers file. This incident will be reported.`);
+            collector.on('collect', i => {
+                if (i.user.id === interaction.user.id) {
+                    switch (i.customId) {
+                        case 'yes':
+                            await i.update({content: 'Crashing the bot in 3...', components: []})
+                            await wait(1000)
+                            await i.update('Crashing the bot in 2...')
+                            await wait(1000)
+                            await i.update('Crashing the bot in 1...')
+                            await wait(1000)
+                            await i.update(`${interaction.user.username} is not in the sudoers file. This incident will be reported.`)
+                            break;
+                        case 'no':
+                            await i.update({content: ':D', components: []})
+                        
+                    }
+                }
+            })
     },
 };
