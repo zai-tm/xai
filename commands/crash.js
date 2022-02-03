@@ -20,10 +20,10 @@ module.exports = {
                 .setStyle('DANGER')
         );
 
-        await interaction.reply({content: 'Are you sure?\nYou have 10 seconds.', components: [yesNo], fetchReply: true});
+        const message = await interaction.reply({content: 'Are you sure?\nYou have 10 seconds.', components: [yesNo], fetchReply: true});
         await wait(10000);
         await interaction.editReply({content: 'Timed out', components: []});
-        const collector = interaction.message.createMessageComponentCollector({ componentType: 'BUTTON', time: 10000});
+        const collector = message.createMessageComponentCollector({ componentType: 'BUTTON', time: 10000});
             collector.on('collect', i => {
                 if (i.user.id === interaction.user.id) {
                     switch (i.customId) {
@@ -40,6 +40,8 @@ module.exports = {
                             i.update({content: ':D', components: []})
                         
                     }
+                } else {
+                    i.reply({content: 'no', components: []})
                 }
             })
     },
