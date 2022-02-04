@@ -55,12 +55,15 @@ async function progressDOS() {
             case 'quit', 'exit', "shutdown":
                 cmd.close();
                 process.exit(0);
-             case 'eval':
+            case 'eval':
                 try {
                     eval(line.trim().substring(4))
                 } catch (error) {
                     console.error(error)
                 }
+                break;
+            case 'send':
+                client.channels.cache.get(line.split(" ")[1]).send(line.split(" ").slice(2).join(" "))
                 break;
             default:
                 console.log('Invalid command.')

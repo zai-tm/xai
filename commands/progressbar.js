@@ -54,7 +54,7 @@ module.exports = {
                 progressbar.push('🟦');
                 progress += 10;
                 blue += 10;
-                const tube = [
+                let tube = [
                     '🟦',
                     '🟨',
                     '🟨',
@@ -98,7 +98,7 @@ module.exports = {
                 progressbar.push('🟨');
                 progress += 10;
                 yellow += 10;
-                const zebra = [
+                let zebra = [
                     '🟦',
                     '🟨',
                     '🟦',
