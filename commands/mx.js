@@ -39,7 +39,7 @@ module.exports = {
         } else {
             colour = "#7AD5FF"
         }
-        axios.get(`https://${game}.exchange/mapsearch2/search?api=on&trackname=${searchString}`)
+        axios.get(`https://${game}.exchange/mapsearch2/search?api=on&trackname=${searchString}`, {headers: {'User-Agent': 'Zai#1113\'s discord bot'}})
         .then((res) => {
             var data = res.data.results[0];
             console.log(
