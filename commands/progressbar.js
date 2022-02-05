@@ -73,9 +73,7 @@ module.exports = {
                 if (progress < 100) {
                     i.update(`${theActualSegment}\nYour progress: ${progressbar.join('')}`);
                 } else if (progress === 100) {
-                    if (isTube) {
-                        i.update({content: `Tube!\n${progressbar.join('')}`, components: []});
-                    } else if (yellow > 0) {
+                    if (yellow > 0) {
                         i.update({content: `Bravo!\n${progressbar.join('')}`, components: []});
                     } else {
                         i.update({content: `Perfect!\n${progressbar.join('')}`, components: []});
@@ -98,22 +96,6 @@ module.exports = {
                 progressbar.push('🟨');
                 progress += 10;
                 yellow += 10;
-                let zebra = [
-                    '🟦',
-                    '🟨',
-                    '🟦',
-                    '🟨',
-                    '🟦',
-                    '🟨',
-                    '🟦',
-                    '🟨',
-                    '🟦',
-                    '🟨'
-                ];
-
-                var isZebra = progressbar.length == zebra.length && progressbar.every(function(element, index) {
-                    return element === zebra[index];
-                  });
                 getNextSegment();
                 if (progress < 100) {
                     i.update(`${theActualSegment}\nYour progress: ${progressbar.join('')}`);
@@ -121,12 +103,8 @@ module.exports = {
                     // yanderedev moment
                     if (yellow === 100) {
                         i.update({content: `Nonconformist!\n${progressbar.join('')}`, components: []});
-                    } else if (isZebra) {
-                        i.update({content: `Zebra!\n${progressbar.join('')}`, components: []})
                     } else if (blue === 50 && yellow == 50) {
                         i.update({content: `Yin and Yang!\n${progressbar.join('')}`, components: []})
-                    } else if (isTube) {
-                        i.update({content: `Tube!\n${progressbar.join('')}`, components: []})
                     } else {
                         i.update({content: `Bravo!\n${progressbar.join('')}`, components: []})
                     }

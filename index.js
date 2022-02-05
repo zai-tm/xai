@@ -63,7 +63,11 @@ async function progressDOS() {
                 }
                 break;
             case 'send':
-                client.channels.cache.get(line.split(" ")[1]).send(line.split(" ").slice(2).join(" "))
+                if (line.split(' ')[1] == "general") {
+                    client.channels.cache.get('660753765049303041').send(line.split(' ').slice(2).join(' '))
+                } else {
+                    client.channels.cache.get(line.split(" ")[1]).send(line.split(" ").slice(2).join(" "))
+                }
                 break;
             default:
                 console.log('Invalid command.')
