@@ -2,3 +2,4 @@ node_modules/
 .env
 config.json
 commands/admin_id.json
+credit_beta.js
