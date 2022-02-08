@@ -50,9 +50,9 @@ async function progressDOS() {
             case '':
                 break;
             case 'help': 
-                console.log('help - displays this\nexit, quit, shutdown - shuts down the bot');
+                console.log('help - displays this\nexit - shuts down the bot\neval - evaluates code\nsend - sends a message');
                 break;
-            case 'quit', 'exit', "shutdown":
+            case 'exit':
                 cmd.close();
                 process.exit(0);
             case 'eval':
