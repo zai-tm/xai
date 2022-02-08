@@ -4,7 +4,7 @@ const {MessageEmbed} = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('credit')
-        .setDescription('What is you Progress Credit™?'),
+        .setDescription('What is your Progress Credit™?'),
     async execute(interaction) {
         const number = Math.floor(Math.random() * 6)
         const credit = 0
