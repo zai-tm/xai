@@ -6,7 +6,7 @@ module.exports = {
         .setName('credit')
         .setDescription('What is your Progress Credit™?'),
     async execute(interaction) {
-        const number = Math.floor(Math.random() * 7)
+        const number = Math.floor(Math.random() * 8)
         const credit = 0
         const image = `https://zai-tm.github.io/credit/${number}.png`
 
