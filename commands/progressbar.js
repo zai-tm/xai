@@ -54,22 +54,6 @@ module.exports = {
                 progressbar.push('🟦');
                 progress += 10;
                 blue += 10;
-                let tube = [
-                    '🟦',
-                    '🟨',
-                    '🟨',
-                    '🟨',
-                    '🟨',
-                    '🟨',
-                    '🟨',
-                    '🟨',
-                    '🟨',
-                    '🟦'
-                ]
-                getNextSegment();
-                var isTube = progressbar.length == tube.length && progressbar.every(function(element, index) {
-                    return element === zebra[index];
-                  });
                 if (progress < 100) {
                     i.update(`${theActualSegment}\nYour progress: ${progressbar.join('')}`);
                 } else if (progress === 100) {
