@@ -1,5 +1,5 @@
 const {SlashCommandBuilder} = require('@discordjs/builders');
-const { MessageButton, MessageActionRow } = require('discord.js');
+const { MessageButton, MessageActionRow, MessageEmbed } = require('discord.js');
 let quiz = require('./quiz.json')
 const questions = quiz.questions
 
@@ -14,6 +14,18 @@ module.exports = {
         const answerWrong1 = questions[random].answerWrong1;
         const answerWrong2 = questions[random].answerWrong2;
         const answerWrong3 = questions[random].answerWrong3;
+        const failMessages = [
+            "You're wrong.",
+            "I bet you unironically think 9+10 is 21.",
+            "I'm disappointed in you.",
+            "Have you been living under a rock?"
+        ]
+        const winMessages = [
+            "You're right.",
+            "I would give you some Progress Credit:tm: if I could.",
+            "You're a true Progressbar95 fan.",
+            "You should get promoted to Owner."
+        ]
 
         const answerCorrectButton = new MessageButton()
             .setCustomId('answer_correct')
@@ -32,7 +44,10 @@ module.exports = {
             .setLabel(answerWrong3)
             .setStyle('SECONDARY');
 
-
+        function randomMessage(array) {
+            Math.floor(Math.random() * array.length);
+            return array[Math.floor(Math.random() * array.length)];
+        }
         let answers = [
             answerCorrectButton,
             answerWrong1Button,
@@ -53,7 +68,11 @@ module.exports = {
         shuffle(answers)
         const answerButtons = new MessageActionRow()
             .addComponents(answers);
-        const message = await interaction.reply({content: question+'\nyou have '+questions[random].time/1000+' seconds to answer', components: [answerButtons], fetchReply: true});
+        const questionEmbed = new MessageEmbed()
+            .setTitle(question)
+            .setColor('#007f7f')
+            .setFooter(`You have ${questions[random].time/1000} seconds to answer.`)
+        const message = await interaction.reply({embeds: [questionEmbed], components: [answerButtons], fetchReply: true});
         const collector = message.createMessageComponentCollector({ componentType: 'BUTTON', time: questions[random].time});
         collector.on('collect', i => {
             if (i.component.customId === 'answer_correct') {
@@ -62,9 +81,19 @@ module.exports = {
                 answerWrong2Button.setStyle('SECONDARY').setDisabled(true);
                 answerWrong3Button.setStyle('SECONDARY').setDisabled(true);
                 let answerButtonFinished = new MessageActionRow().addComponents(answers);
-                i.update({content: question+'\ngood job. no insult because you answered correctly', components: [answerButtonFinished]})
+                let questionEmbedFinished = new MessageEmbed()
+                    .setTitle(question)
+                    .setDescription(randomMessage(winMessages))
+                    .setColor('#007f00')
+                    .setFooter(`You answered correctly!`)
+                i.update({embeds: [questionEmbedFinished], components: [answerButtonFinished]})
                 collector.stop();
             } else {
+                questionEmbedFinished = new MessageEmbed()
+                    .setTitle(question)
+                    .setDescription(randomMessage(failMessages))
+                    .setColor('#7f0000')
+                    .setFooter(`You answered incorrectly!`)
                 switch (i.component.customId) {
                     case 'answer_wrong1':
                         answerCorrectButton.setStyle('SUCCESS').setDisabled(true);
@@ -88,19 +117,24 @@ module.exports = {
                         break;
                     }
                 answerButtonFinished = new MessageActionRow().addComponents(answers);
-                i.update({content: question+'\ni bet you unironically think 9+10 = 21', components: [answerButtonFinished]})
+                i.update({embeds: [questionEmbedFinished], components: [answerButtonFinished]})
                 collector.stop();
             }
         });
 
         collector.on('end', collected => {
             if (collected.size === 0) {
+                questionEmbedFinished = new MessageEmbed()
+                    .setTitle(question)
+                    .setDescription('Hello, anyone there?')
+                    .setColor('#7f7f00')
+                    .setFooter(`You ran out of time!`)
                 answerCorrectButton.setStyle('SUCCESS').setDisabled(true);
                 answerWrong1Button.setStyle('SECONDARY').setDisabled(true);
                 answerWrong2Button.setStyle('SECONDARY').setDisabled(true);
                 answerWrong3Button.setStyle('SECONDARY').setDisabled(true);
                 let answerButtonFinished = new MessageActionRow().addComponents(answers);
-                interaction.editReply({content: question+'\nyou ran out of time. next time, think faster bozo', components: [answerButtonFinished]})
+                interaction.editReply({embeds: [questionEmbedFinished], components: [answerButtonFinished]})
             } else {
                 return;
             }
