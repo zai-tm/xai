@@ -18,13 +18,31 @@ module.exports = {
             "You're wrong.",
             "I bet you unironically think 9+10 is 21.",
             "I'm disappointed in you.",
-            "Have you been living under a rock?"
+            "Have you been living under a rock?",
+            // stuartt
+            "I hope both sides of your pillow are warm.",
+            "99% of people got that question right.",
         ]
         const winMessages = [
             "You're right.",
             "I would give you some Progress Credit:tm: if I could.",
             "You're a true Progressbar95 fan.",
-            "You should get promoted to Owner."
+            "You should get promoted to Owner.",
+            "You finally did it! You reached pink colour!",
+            "Was that the brain of 87?"
+        ]
+
+        const timeoutMessages = [
+            "Hello, anyone there?",
+            "Imagine you were disarming a bomb instead of answering a question.",
+            "You're not even trying.",
+            // logan
+            "my dementia ridden grandfather can respond faster than you.",
+            // stuartt
+            "my hot pockets are ready.",
+            //lol guy
+            "Your food's getting cold."
+
         ]
 
         const answerCorrectButton = new MessageButton()
@@ -75,50 +93,54 @@ module.exports = {
         const message = await interaction.reply({embeds: [questionEmbed], components: [answerButtons], fetchReply: true});
         const collector = message.createMessageComponentCollector({ componentType: 'BUTTON', time: questions[random].time});
         collector.on('collect', i => {
-            if (i.component.customId === 'answer_correct') {
-                answerCorrectButton.setStyle('SUCCESS').setDisabled(true);
-                answerWrong1Button.setStyle('SECONDARY').setDisabled(true);
-                answerWrong2Button.setStyle('SECONDARY').setDisabled(true);
-                answerWrong3Button.setStyle('SECONDARY').setDisabled(true);
-                let answerButtonFinished = new MessageActionRow().addComponents(answers);
-                let questionEmbedFinished = new MessageEmbed()
-                    .setTitle(question)
-                    .setDescription(randomMessage(winMessages))
-                    .setColor('#007f00')
-                    .setFooter(`You answered correctly!`)
-                i.update({embeds: [questionEmbedFinished], components: [answerButtonFinished]})
-                collector.stop();
+                if (i.user.id === interaction.user.id) {
+                if (i.component.customId === 'answer_correct') {
+                    answerCorrectButton.setStyle('SUCCESS').setDisabled(true);
+                    answerWrong1Button.setStyle('SECONDARY').setDisabled(true);
+                    answerWrong2Button.setStyle('SECONDARY').setDisabled(true);
+                    answerWrong3Button.setStyle('SECONDARY').setDisabled(true);
+                    let answerButtonFinished = new MessageActionRow().addComponents(answers);
+                    let questionEmbedFinished = new MessageEmbed()
+                        .setTitle(question)
+                        .setDescription(randomMessage(winMessages))
+                        .setColor('#007f00')
+                        .setFooter(`You answered correctly!`)
+                    i.update({embeds: [questionEmbedFinished], components: [answerButtonFinished]})
+                    collector.stop();
+                } else {
+                    questionEmbedFinished = new MessageEmbed()
+                        .setTitle(question)
+                        .setDescription(randomMessage(failMessages))
+                        .setColor('#7f0000')
+                        .setFooter(`You answered incorrectly!`)
+                    switch (i.component.customId) {
+                        case 'answer_wrong1':
+                            answerCorrectButton.setStyle('SUCCESS').setDisabled(true);
+                            answerWrong1Button.setStyle('DANGER').setDisabled(true);
+                            answerWrong2Button.setStyle('SECONDARY').setDisabled(true);
+                            answerWrong3Button.setStyle('SECONDARY').setDisabled(true);
+                            answerButtonFinished = new MessageActionRow().addComponents(answers);
+                            break;
+                        case 'answer_wrong2':
+                            answerCorrectButton.setStyle('SUCCESS').setDisabled(true);
+                            answerWrong1Button.setStyle('SECONDARY').setDisabled(true);
+                            answerWrong2Button.setStyle('DANGER').setDisabled(true);
+                            answerWrong3Button.setStyle('SECONDARY').setDisabled(true);
+                            answerButtonFinished = new MessageActionRow().addComponents(answers);
+                            break;
+                        case 'answer_wrong3':
+                            answerCorrectButton.setStyle('SUCCESS').setDisabled(true);
+                            answerWrong1Button.setStyle('SECONDARY').setDisabled(true);
+                            answerWrong2Button.setStyle('SECONDARY').setDisabled(true);
+                            answerWrong3Button.setStyle('DANGER').setDisabled(true);
+                            break;
+                        }
+                    answerButtonFinished = new MessageActionRow().addComponents(answers);
+                    i.update({embeds: [questionEmbedFinished], components: [answerButtonFinished]})
+                    collector.stop();
+                }
             } else {
-                questionEmbedFinished = new MessageEmbed()
-                    .setTitle(question)
-                    .setDescription(randomMessage(failMessages))
-                    .setColor('#7f0000')
-                    .setFooter(`You answered incorrectly!`)
-                switch (i.component.customId) {
-                    case 'answer_wrong1':
-                        answerCorrectButton.setStyle('SUCCESS').setDisabled(true);
-                        answerWrong1Button.setStyle('DANGER').setDisabled(true);
-                        answerWrong2Button.setStyle('SECONDARY').setDisabled(true);
-                        answerWrong3Button.setStyle('SECONDARY').setDisabled(true);
-                        answerButtonFinished = new MessageActionRow().addComponents(answers);
-                        break;
-                    case 'answer_wrong2':
-                        answerCorrectButton.setStyle('SUCCESS').setDisabled(true);
-                        answerWrong1Button.setStyle('SECONDARY').setDisabled(true);
-                        answerWrong2Button.setStyle('DANGER').setDisabled(true);
-                        answerWrong3Button.setStyle('SECONDARY').setDisabled(true);
-                        answerButtonFinished = new MessageActionRow().addComponents(answers);
-                        break;
-                    case 'answer_wrong3':
-                        answerCorrectButton.setStyle('SUCCESS').setDisabled(true);
-                        answerWrong1Button.setStyle('SECONDARY').setDisabled(true);
-                        answerWrong2Button.setStyle('SECONDARY').setDisabled(true);
-                        answerWrong3Button.setStyle('DANGER').setDisabled(true);
-                        break;
-                    }
-                answerButtonFinished = new MessageActionRow().addComponents(answers);
-                i.update({embeds: [questionEmbedFinished], components: [answerButtonFinished]})
-                collector.stop();
+                i.reply({content: 'This is not your question.', ephemeral: true})
             }
         });
 
@@ -126,7 +148,7 @@ module.exports = {
             if (collected.size === 0) {
                 questionEmbedFinished = new MessageEmbed()
                     .setTitle(question)
-                    .setDescription('Hello, anyone there?')
+                    .setDescription(randomMessage(timeoutMessages))
                     .setColor('#7f7f00')
                     .setFooter(`You ran out of time!`)
                 answerCorrectButton.setStyle('SUCCESS').setDisabled(true);
