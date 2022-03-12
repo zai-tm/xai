@@ -155,7 +155,7 @@ module.exports = {
                 database.query(`select name from tags`, function (err, result, fields) {
                     if (err) throw err;
                     try {
-                        interaction.reply(`I can't display the tag list anymore until i can buy a domain `);
+                        interaction.reply(`Tag list has moved here: http://zai-tm.ml/tags.php`);
                     } catch (error) {
                         interaction.reply(`No tags found.`);
                     }
