@@ -155,7 +155,7 @@ module.exports = {
                 database.query(`select name from tags`, function (err, result, fields) {
                     if (err) throw err;
                     try {
-                        interaction.reply(`Tags: \n\`\`\`ansi\n${result.map(tag => `[1;35m${tag.name}[0m`).join(', ')}\n\`\`\``);
+                        interaction.reply(`I can't display the tag list anymore until i can buy a domain `);
                     } catch (error) {
                         interaction.reply(`No tags found.`);
                     }
