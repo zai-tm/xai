@@ -213,9 +213,5 @@ module.exports = {
                 i.reply({content: `this is someone else's progressbar`, ephemeral: true});
             }
         });
-
-        collector.on('end', collected => {
-            console.log(`Collected ${collected.size} items`);
-        });
     },
 };

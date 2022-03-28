@@ -42,9 +42,6 @@ module.exports = {
         axios.get(`https://${game}.exchange/mapsearch2/search?api=on&trackname=${searchString}`, {headers: {'User-Agent': 'Zai#1113\'s discord bot'}})
         .then((res) => {
             var data = res.data.results[0];
-            console.log(
-                `${interaction.user.username} searched "${searchString}", first result was ${data.Name} by ${data.Username} (https://${game}.exchange.com/s/tr/${data.TrackID})`
-        );
         const desc = data.Comments;
         const regexB = /(\[b])|(\[\/b])/g
         const regexI = /(\[i])|(\[\/i])/g

@@ -11,7 +11,6 @@ module.exports = {
         const deathMessages = death.deathmessages[typeOfDeath]
         const victim = interaction.options.getUser('victim');
         var todString = "";
-        console.log(typeOfDeath)
 
         switch (typeOfDeath) {
             case 0:
@@ -21,8 +20,6 @@ module.exports = {
                 todString = "general"
                 break;
         }
-
-        console.log(todString + "\n" + victim.id)
         var deathMessage = deathMessages[todString][Math.floor(Math.random() * Object.keys(deathMessages[todString]).length)].text;
         var deathMessage2 = "";
 
@@ -33,11 +30,6 @@ module.exports = {
             case "general":
                 deathMessage2 = `<@!${victim.id}> ${deathMessage}`;
                 break;
-        }
-        try {
-            console.log(deathMessage)
-        } catch (error) {
-            console.error(error)
         }
         const embed = new MessageEmbed()
             .setTitle('You Died!')

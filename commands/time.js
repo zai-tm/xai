@@ -8,8 +8,6 @@ module.exports = {
     async execute(interaction) {
         const currentTimestamp = Math.round(+new Date() / 1000);
         const timestampColour = currentTimestamp.toString(16).substring(2, 10);
-        
-        console.log(timestampColour)
 
         const embed = new MessageEmbed()
             .setTitle('Current Time')

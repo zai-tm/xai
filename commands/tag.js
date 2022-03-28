@@ -117,7 +117,7 @@ module.exports = {
                             });
                         }
                     } catch (error) {
-                        console.log('tag doesn\'t exist');
+                        interaction.reply(`Tag **${name}** does not exist.`);
                     }
                 });
                 break;
