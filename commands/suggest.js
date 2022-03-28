@@ -14,12 +14,13 @@ module.exports = {
         if (suggestion.length > 2000){ 
             await interaction.reply({content: 'Your suggestion is too long. Please shorten it.', ephemeral: true});
             suggestion = 'The suggestion was too long.';
-        }
+        } else {
         webhookClient.send({
             content: suggestion,
             username: interaction.user.username,
             avatarURL: interaction.user.avatarURL(),
         });
         await interaction.reply({content: 'Your suggestion was sent.', ephemeral: true});
+        }
     },
 };
