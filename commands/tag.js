@@ -62,7 +62,7 @@ module.exports = {
                             if (name.length > 50 || content.length > 1000) {
                                 interaction.reply(`Tag name or content is too long`);
                                 } else {
-                                    database.query(`insert into tags (name,content,username,userid) values ('${name.toLowerCase().replaceAll("'", "\\'")}','${content.replaceAll("'", "\\'")}','${interaction.user.tag}',${interaction.user.id})`, function (err, result, fields) {
+                                    database.query(`insert into tags (name,content,userid) values ('${name.toLowerCase().replaceAll("'", "\\'")}','${content.replaceAll("'", "\\'")}',${interaction.user.id})`, function (err, result, fields) {
                                         if (err) throw err;
                                         interaction.reply(`Tag **${name}** created!`);
                             });
@@ -142,11 +142,13 @@ module.exports = {
                 });
                 break;
             case 'info':
-                database.query(`select username,userid from tags where name='${name.toLowerCase()}'`, function (err, result, fields) {
+                database.query(`select userid from tags where name='${name.toLowerCase()}'`, async function (err, result, fields) {
                     if (err) throw err;
                     try {
-                        interaction.reply(`Tag **${name}** was created by **${result[0].username}** (\`${result[0].userid}\`).`);
+                        let user = await interaction.client.users.fetch(result[0].userid);
+                        interaction.reply(`Tag **${name}** was created by **${user.tag}** (\`${result[0].userid}\`).`);
                     } catch (error) {
+                        console.error(error);
                         interaction.reply(`Tag **${name}** does not exist.`);
                     }
                 });
@@ -155,7 +157,7 @@ module.exports = {
                 database.query(`select name from tags`, function (err, result, fields) {
                     if (err) throw err;
                     try {
-                        interaction.reply(`Tag list has moved here: http://zai-tm.ml/tags.php`);
+                        interaction.reply(`sadly i cannot display tags until luihum sets up a webserver`);
                     } catch (error) {
                         interaction.reply(`No tags found.`);
                     }
