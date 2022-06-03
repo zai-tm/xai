@@ -157,7 +157,7 @@ module.exports = {
                 database.query(`select name from tags`, function (err, result, fields) {
                     if (err) throw err;
                     try {
-                        interaction.reply(`sadly i cannot display tags until luihum sets up a webserver`);
+                        interaction.reply(`<http://139.162.214.9/tags.php>`);
                     } catch (error) {
                         interaction.reply(`No tags found.`);
                     }
