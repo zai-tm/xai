@@ -17,16 +17,25 @@ module.exports = {
         .addChoice('Fishington', 'fishing')
         .addChoice('Letter Tile', 'lettertile')
         .addChoice('Words Snack', 'wordsnack')
-        .addChoice('Doodle Crew', 'doodlecrew')
+        //.addChoice('Doodle Crew', 'doodlecrew')
         .addChoice('SpellCast', 'spellcast')
         .addChoice('Awkword', 'awkword')
         .addChoice('Puttparty', 'puttparty')
         .addChoice('Sketchheads', 'sketchheads')
         .addChoice('Ocho', 'ocho')
+        .addChoice('Landio', 'landio')
+        .addChoice('Bobble League', 'bobble')
         ),
     async execute(interaction) {
         let activityStr = interaction.options.getString('type');
-        interaction.client.discordTogether = new DiscordTogether(interaction.client);
+
+        const myApps = {
+            landio: '903769130790969345',
+            bobble: '947957217959759964'
+        }
+
+        interaction.client.discordTogether = new DiscordTogether(interaction.client, myApps);
+
         if(interaction.member.voice.channel) {
             interaction.client.discordTogether.createTogetherCode(interaction.member.voice.channel.id, activityStr).then(async invite => {
                 return interaction.reply(`${invite.code}`);
