@@ -59,7 +59,7 @@ module.exports = {
                         if (result[0][`exists(select name from tags where name='${name.toLowerCase().replaceAll("'", "\\'")}')`] == 1) {
                             interaction.reply(`Tag **${name}** already exists`);
                         } else {
-                            if (name.length > 50 || content.length > 1000) {
+                            if (name.length > 50 || content.length > 2000) {
                                 interaction.reply(`Tag name or content is too long`);
                                 } else {
                                     database.query(`insert into tags (name,content,userid) values ('${name.toLowerCase().replaceAll("'", "\\'")}','${content.replaceAll("'", "\\'")}',${interaction.user.id})`, function (err, result, fields) {
