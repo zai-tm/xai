@@ -20,10 +20,10 @@ module.exports = {
         .addChoice('Words Snack', 'wordsnack')
         //.addChoice('Doodle Crew', 'doodlecrew')
         .addChoice('SpellCast', 'spellcast')
-        .addChoice('Awkword', 'awkword')
-        .addChoice('Puttparty', 'puttparty')
+        .addChoice('Awkword', 'awkwordnew')
+        .addChoice('Puttparty', 'puttpartynew')
         .addChoice('Sketchheads', 'sketchheads')
-        .addChoice('Ocho', 'ocho')
+        .addChoice('Blazing 8s', 'ocho')
         .addChoice('Landio', 'landio')
         .addChoice('Bobble League', 'bobble')
         ),
@@ -32,7 +32,9 @@ module.exports = {
 
         const myApps = {
             landio: '903769130790969345',
-            bobble: '947957217959759964'
+            bobble: '947957217959759964',
+            puttpartynew: "945737671223947305",
+            awkwordnew: "879863881349087252",
         }
 
         interaction.client.discordTogether = new DiscordTogether(interaction.client, myApps);
