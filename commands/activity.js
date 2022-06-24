@@ -20,7 +20,7 @@ module.exports = {
         .addChoice('Words Snack', 'wordsnack')
         //.addChoice('Doodle Crew', 'doodlecrew')
         .addChoice('SpellCast', 'spellcast')
-        .addChoice('Awkword', 'awkwordnew')
+        //.addChoice('Awkword', 'awkwordnew')
         .addChoice('Puttparty', 'puttpartynew')
         .addChoice('Sketchheads', 'sketchheads')
         .addChoice('Blazing 8s', 'ocho')
