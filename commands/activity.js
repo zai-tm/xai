@@ -26,14 +26,9 @@ module.exports = {
         .addChoice('Ocho', 'ocho')
         .addChoice('Landio', 'landio')
         .addChoice('Bobble League', 'bobble')
-        )
-    .addStringOption(option => option
-        .setName('channel_id')
-        .setDescription('set channel id')
         ),
     async execute(interaction) {
         let activityStr = interaction.options.getString('type');
-        let channelId = interaction.options.getString('channel_id');
 
         const myApps = {
             landio: '903769130790969345',
@@ -42,22 +37,12 @@ module.exports = {
 
         interaction.client.discordTogether = new DiscordTogether(interaction.client, myApps);
 
-        if (!channelId) {
-            if(interaction.member.voice.channel != null) {
-                interaction.client.discordTogether.createTogetherCode(interaction.member.voice.channel.id, activityStr).then(async invite => {
-                    return interaction.reply(`${invite.code}`);
-                });
-            } else {
-                interaction.reply({content:"You are not in a voice channel. Please use the `channel_id` option to set the channel.",ephemeral:"true"});
-            }
+        if(interaction.member.voice.channel != null) {
+            interaction.client.discordTogether.createTogetherCode(interaction.member.voice.channel.id, activityStr).then(async invite => {
+                return interaction.reply(`${invite.code}`);
+            });
         } else {
-            try {
-                interaction.client.discordTogether.createTogetherCode(channelId, activityStr).then(async invite => {
-                    return interaction.reply(`${invite.code}`);
-                });
-            } catch (e) {
-                interaction.reply({content:"Invalid channel ID",ephemeral:"true"});
-            }
+            interaction.reply({content:"You are not in a voice channel. Please use the `channel_id` option to set the channel.",ephemeral:"true"});
         }
     },
 };
