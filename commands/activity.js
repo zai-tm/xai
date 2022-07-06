@@ -69,7 +69,7 @@ module.exports = {
             case 'bobble':
                 activityName = "Bobble League";
                 break;
-            case 'bobble':
+            case 'askaway':
                 activityName = "Ask Away";
                 break;
         }
