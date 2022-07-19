@@ -26,6 +26,8 @@ module.exports = {
         .addChoice('Blazing 8s', 'ocho')
         .addChoice('Land-io', 'landio')
         .addChoice('Bobble League', 'bobble')
+        .addChoice('AskAway', 'askaway')
+        .addChoice('Know What I Meme', 'meme')
         ),
     async execute(interaction) {
         let activityStr = interaction.options.getString('type');
@@ -68,12 +70,20 @@ module.exports = {
             case 'bobble':
                 activityName = "Bobble League";
                 break;
+            case 'askaway':
+                activityName = "Ask Away";
+                break;
+            case 'meme':
+                activityName = "Know What I Meme";
+                break;
         }
 
         const myApps = {
             landio: '903769130790969345',
             bobble: '947957217959759964',
             puttpartynew: "945737671223947305",
+            askaway: "976052223358406656",
+            meme: "950505761862189096"
             //awkwordnew: "879863881349087252",
         }
 
