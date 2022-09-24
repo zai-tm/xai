@@ -28,6 +28,7 @@ module.exports = {
         .addChoice('Bobble League', 'bobble')
         .addChoice('AskAway', 'askaway')
         .addChoice('Know What I Meme', 'meme')
+        .addChoice('Bash Out!', 'bash')
         ),
     async execute(interaction) {
         let activityStr = interaction.options.getString('type');
@@ -76,6 +77,9 @@ module.exports = {
             case 'meme':
                 activityName = "Know What I Meme";
                 break;
+            case 'bash':
+                activityName = "Bash Out!"
+                break;
         }
 
         const myApps = {
@@ -83,7 +87,8 @@ module.exports = {
             bobble: '947957217959759964',
             puttpartynew: "945737671223947305",
             askaway: "976052223358406656",
-            meme: "950505761862189096"
+            meme: "950505761862189096",
+            bash: "1006584476094177371"
             //awkwordnew: "879863881349087252",
         }
 
